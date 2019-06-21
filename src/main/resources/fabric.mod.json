@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "ironbarrels",
+  "version": "${version}",
+
+  "name": "Iron Barrels",
+  "description": "",
+  "authors": [
+    "MarioAndWeegee3"
+  ],
+  "contact": {
+    "homepage": "https://minecraft.curseforge.com/members/MarioAndWeegee3",
+    "sources": ""
+  },
+
+  "license": "Unlicense",
+  "icon": "assets/ironbarrels/textures/logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "marioandweegee3.ironbarrels.IronBarrels"
+    ],
+    "client":[
+      "marioandweegee3.ironbarrels.IronBarrels"
+    ]
+  },
+
+  "requires": {
+    "fabricloader": ">=0.4.0",
+    "fabric": ">=0.3.0+build.170",
+    "cursedchests":"2.*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

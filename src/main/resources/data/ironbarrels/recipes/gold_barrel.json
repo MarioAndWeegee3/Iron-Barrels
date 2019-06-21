@@ -1,0 +1,14 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        "xyx",
+        "xbx",
+        "xyx"
+    ],
+    "key":{
+        "x":{"item":"minecraft:gold_ingot"},
+        "y":{"item":"minecraft:gold_nugget"},
+        "b":{"item":"ironbarrels:iron_barrel"}
+    },
+    "result":{"item":"ironbarrels:gold_barrel"}
+}

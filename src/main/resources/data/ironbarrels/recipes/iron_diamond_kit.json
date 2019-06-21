@@ -1,0 +1,14 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        "xyx",
+        "xbx",
+        "xyx"
+    ],
+    "key":{
+        "x":{"tag":"cursedchests:impermeable"},
+        "y":{"item":"minecraft:diamond"},
+        "b":{"item":"ironbarrels:iron_gold_kit"}
+    },
+    "result":{"item":"ironbarrels:iron_diamond_kit"}
+}

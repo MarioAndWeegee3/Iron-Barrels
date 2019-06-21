@@ -1,0 +1,14 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        "xyx",
+        "xbx",
+        "xyx"
+    ],
+    "key":{
+        "x":{"item":"minecraft:obsidian"},
+        "y":{"item":"minecraft:nether_bricks"},
+        "b":{"item":"ironbarrels:gold_diamond_kit"}
+    },
+    "result":{"item":"ironbarrels:gold_obsidian_kit"}
+}
