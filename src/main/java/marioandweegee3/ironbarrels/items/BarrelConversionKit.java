@@ -1,12 +1,13 @@
 package marioandweegee3.ironbarrels.items;
 
 import marioandweegee3.ironbarrels.IronBarrels;
+import marioandweegee3.ironbarrels.blocks.entities.BigBarrelEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -47,26 +48,42 @@ public class BarrelConversionKit extends Item{
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
-        BlockState state = world.getBlockState(pos);
-        if(!context.getPlayer().isSneaking()) return ActionResult.PASS;
+        if(!world.isClient){
+            BlockPos pos = context.getBlockPos();
+            BlockState state = world.getBlockState(pos);
+            if(!context.getPlayer().isSneaking()) return ActionResult.PASS;
 
-        if(isInput(state.getBlock())){
-            BlockEntity entity = world.getBlockEntity(pos);
-            DefaultedList<ItemStack> inventory = DefaultedList.create(((Inventory)entity).getInvSize(), ItemStack.EMPTY);
+            if(isInput(state.getBlock())){
+                BlockEntity entity = world.getBlockEntity(pos);
+                if(entity instanceof BarrelBlockEntity){
+                    BarrelBlockEntity barrelEntity = (BarrelBlockEntity) entity;
+                    DefaultedList<ItemStack> inventory = DefaultedList.create(barrelEntity.getInvSize(), ItemStack.EMPTY);
 
-            Inventories.fromTag(entity.toTag(new CompoundTag()), inventory);
-            world.removeBlockEntity(pos);
-            world.setBlockState(pos, Registry.BLOCK.get(to).getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
-            entity = world.getBlockEntity(pos);
-            entity.fromTag(Inventories.toTag(entity.toTag(new CompoundTag()), inventory));
+                    Inventories.fromTag(barrelEntity.toTag(new CompoundTag()), inventory);
+                    world.removeBlockEntity(pos);
+                    world.setBlockState(pos, Registry.BLOCK.get(to).getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+                    BigBarrelEntity newEntity = (BigBarrelEntity) world.getBlockEntity(pos);
+                    newEntity.fromTag(Inventories.toTag((newEntity.toTag(new CompoundTag())), inventory));
 
-            ItemStack stack = context.getStack();
-            if(!world.isClient){
-                stack.decrement(1);
+                    ItemStack stack = context.getStack();
+                    stack.decrement(1);
+                } else if(entity instanceof BigBarrelEntity){
+                    BigBarrelEntity barrelEntity = (BigBarrelEntity) entity;
+                    DefaultedList<ItemStack> inventory = DefaultedList.create(barrelEntity.getInvSize(), ItemStack.EMPTY);
+
+                    Inventories.fromTag(barrelEntity.toTag(new CompoundTag()), inventory);
+                    world.removeBlockEntity(pos);
+                    world.setBlockState(pos, Registry.BLOCK.get(to).getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+                    BigBarrelEntity newEntity = (BigBarrelEntity) world.getBlockEntity(pos);
+                    newEntity.fromTag(Inventories.toTag((newEntity.toTag(new CompoundTag())), inventory));
+
+                    ItemStack stack = context.getStack();
+                    stack.decrement(1);
+                }
+                
+
+                return ActionResult.SUCCESS;
             }
-
-            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
