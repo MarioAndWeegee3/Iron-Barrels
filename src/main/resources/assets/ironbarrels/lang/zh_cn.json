@@ -1,0 +1,24 @@
+{
+    "block.ironbarrels.iron_barrel":"铁桶",
+    "ironbarrels.iron":"铁桶",
+    "block.ironbarrels.gold_barrel":"金桶",
+    "ironbarrels.gold":"金桶",
+    "block.ironbarrels.diamond_barrel":"钻石桶",
+    "ironbarrels.diamond":"钻石桶",
+    "block.ironbarrels.obsidian_barrel":"黑曜石桶",
+    "ironbarrels.obsidian":"黑曜石桶",
+
+    "item.ironbarrels.wood_iron_kit":升级: "木桶 → 铁桶",
+    "item.ironbarrels.wood_gold_kit":"升级: 木桶 → 金桶",
+    "item.ironbarrels.wood_diamond_kit":"升级: 木桶 → 钻石桶",
+    "item.ironbarrels.wood_obsidian_kit":"升级: 木桶 → 黑曜石桶",
+
+    "item.ironbarrels.iron_gold_kit":"升级: 铁桶 → 金桶",
+    "item.ironbarrels.iron_diamond_kit":"升级: 铁桶 → 钻石桶",
+    "item.ironbarrels.iron_obsidian_kit":"升级: 铁桶 → 黑曜石桶",
+
+    "item.ironbarrels.gold_diamond_kit":"升级: 金桶 → 钻石桶",
+    "item.ironbarrels.gold_obsidian_kit":"升级: 金桶 → 黑曜石桶",
+
+    "item.ironbarrels.diamond_obsidian_kit":"升级: 钻石桶 → 黑曜石桶"
+}
