@@ -1,0 +1,16 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        " z ",
+        "xyx",
+        " z "
+    ],
+    "key":{
+        "x":{"item":"gold_ingot"},
+        "y":{"item":"ironbarrels2:wood_silver_kit"},
+        "z":{"item":"glass"}
+    },
+    "result":{
+        "item":"ironbarrels2:wood_gold_kit"
+    }
+}

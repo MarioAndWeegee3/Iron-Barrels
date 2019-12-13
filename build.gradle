@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.4-SNAPSHOT'
+	id 'fabric-loom' version '0.2.5-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -13,12 +13,11 @@ group = project.maven_group
 minecraft {
 }
 
-repositories{
-	
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
+repositories {
+	maven { url 'http://server.bbkr.space:8081/artifactory/libs-release' }
+	maven { url 'http://server.bbkr.space:8081/artifactory/libs-snapshot' }
+	maven { url "https://minecraft.curseforge.com/api/maven" }
+	mavenLocal()
 }
 
 dependencies {
@@ -30,7 +29,14 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	modCompile "cursed-chests:CursedChests:${project.cursed_chests_version}"
+	modCompile "io.github.cottonmc:LibGui:${project.libgui_version}"
+	modCompile "marioandweegee3:ml3api:${project.ml3api_version}"
+	modImplementation ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}")
+	modCompile "io.github.cottonmc:LibCD:${project.libcd_version}"
+	
+	include "io.github.cottonmc:LibGui:${project.libgui_version}"
+	include "marioandweegee3:ml3api:${project.ml3api_version}"
+	include "io.github.cottonmc:LibCD:${project.libcd_version}"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -73,7 +79,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			// add all the jars that should be included when publishing to maven
-			artifact(jar) {
+			artifact(remapJar) {
 				builtBy remapJar
 			}
 			artifact(sourcesJar) {

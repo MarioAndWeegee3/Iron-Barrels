@@ -1,0 +1,8 @@
+{
+    "parent":"item/generated",
+    "textures":{
+        "layer0":"ironbarrels2:item/upgrade/base",
+        "layer1":"ironbarrels2:item/upgrade/from_wood",
+        "layer2":"ironbarrels2:item/upgrade/to_obsidian"
+    }
+}

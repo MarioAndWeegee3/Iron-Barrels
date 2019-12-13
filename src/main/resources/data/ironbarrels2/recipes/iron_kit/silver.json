@@ -1,0 +1,13 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        "xyx"
+    ],
+    "key":{
+        "x":{"tag":"c:silver_ingot"},
+        "y":{"item":"iron_ingot"}
+    },
+    "result":{
+        "item":"ironbarrels2:iron_silver_kit"
+    }
+}

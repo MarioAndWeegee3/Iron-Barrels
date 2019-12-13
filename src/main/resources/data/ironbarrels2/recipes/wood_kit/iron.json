@@ -1,0 +1,15 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "key":{
+        "x":{"item":"iron_ingot"},
+        "y":{"tag":"planks"}
+    },
+    "result":{
+        "item":"ironbarrels2:wood_iron_kit"
+    }
+}

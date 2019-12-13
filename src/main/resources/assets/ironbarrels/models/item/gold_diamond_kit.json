@@ -1,8 +1,0 @@
-{
-    "parent":"item/generated",
-    "textures":{
-        "layer0":"ironbarrels:item/upgrade/base",
-        "layer1":"ironbarrels:item/upgrade/from_gold",
-        "layer2":"ironbarrels:item/upgrade/to_diamond"
-    }
-}

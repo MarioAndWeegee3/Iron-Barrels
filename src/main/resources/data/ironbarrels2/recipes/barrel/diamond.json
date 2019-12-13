@@ -1,0 +1,16 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        " z ",
+        "xyx",
+        " z "
+    ],
+    "key":{
+        "x":{"item":"diamond"},
+        "y":{"item":"ironbarrels2:gold_barrel"},
+        "z":{"item":"glass"}
+    },
+    "result":{
+        "item":"ironbarrels2:diamond_barrel"
+    }
+}

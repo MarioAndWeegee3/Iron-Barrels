@@ -1,35 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "ironbarrels",
+  "id": "ironbarrels2",
   "version": "${version}",
 
-  "name": "Iron Barrels",
-  "description": "",
+  "name": "Iron Barrels 2",
+  "description": "Iron Barrels - remade for a better experience",
   "authors": [
     "MarioAndWeegee3"
   ],
   "contact": {
-    "homepage": "https://minecraft.curseforge.com/members/MarioAndWeegee3",
-    "sources": ""
+    "homepage": "https://marioandweegee3.github.io"
   },
 
-  "license": "Unlicense",
-  "icon": "assets/ironbarrels/textures/logo.png",
+  "license": "",
+  "icon": "assets/ironbarrels2/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "marioandweegee3.ironbarrels.IronBarrels"
+      "marioandweegee3.ironbarrels2.IronBarrels"
     ],
     "client":[
-      "marioandweegee3.ironbarrels.IronBarrels"
+      "marioandweegee3.ironbarrels2.client.IronBarrelsClient"
     ]
   },
+  "mixins": [
+    "ironbarrels2.mixins.json"
+  ],
 
-  "requires": {
+  "depends": {
     "fabricloader": ">=0.4.0",
-    "fabric": ">=0.3.0+build.170",
-    "cursedchests":"2.*"
+    "fabric": "*"
   },
   "suggests": {
     "flamingo": "*"

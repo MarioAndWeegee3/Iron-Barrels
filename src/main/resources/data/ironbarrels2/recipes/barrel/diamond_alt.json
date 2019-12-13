@@ -1,0 +1,15 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "key":{
+        "x":{"item":"diamond"},
+        "y":{"item":"ironbarrels2:silver_barrel"}
+    },
+    "result":{
+        "item":"ironbarrels2:diamond_barrel"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "type":"crafting_shaped",
+    "pattern":[
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "key":{
+        "x":{"tag":"c:copper_ingot"},
+        "y":{"item":"barrel"}
+    },
+    "result":{
+        "item":"ironbarrels2:copper_barrel"
+    }
+}

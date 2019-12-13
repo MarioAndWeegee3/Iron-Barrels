@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "top": "ironbarrels2:block/iron/top",
+        "side": "ironbarrels2:block/iron/side",
+        "bottom": "ironbarrels2:block/iron/bottom"
+    }
+}
