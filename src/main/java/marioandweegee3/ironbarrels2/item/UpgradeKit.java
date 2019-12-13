@@ -38,7 +38,7 @@ public class UpgradeKit extends Item {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        tooltip.add(getUpgradeText().setStyle(new Style().setColor(Formatting.field_1080)));
+        tooltip.add(getUpgradeText().setStyle(new Style().setColor(Formatting.GRAY)));
     }
 
     private TranslatableText getUpgradeText(){
@@ -105,10 +105,10 @@ public class UpgradeKit extends Item {
                     context.getStack().decrement(1);
                 }
 
-                return ActionResult.field_5812;
+                return ActionResult.SUCCESS;
             }
         }
-        return ActionResult.field_21466;
+        return ActionResult.PASS;
     }
 
 }

@@ -69,7 +69,7 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
         this.rows = rows;
         this.columns = columns;
         this.index = index;
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.field_11043).with(OPEN, false));
+        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(OPEN, false));
     }
 
     public int getRows(){
@@ -144,7 +144,7 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
     public ActionResult onUse(BlockState blockState_1, World world, BlockPos pos, PlayerEntity player,
             Hand hand, BlockHitResult blockHitResult_1) {
         if (world.isClient) {
-            return ActionResult.field_5812;
+            return ActionResult.SUCCESS;
         } else {
             if(!player.isSneaking()){
                 BlockEntity blockEntity_1 = world.getBlockEntity(pos);
@@ -157,11 +157,11 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
                         }
                     );
 
-                    player.incrementStat(Stats.field_17271);
+                    player.incrementStat(Stats.OPEN_BARREL);
                 }
             }
 
-            return ActionResult.field_5812;
+            return ActionResult.SUCCESS;
         }
     }
 

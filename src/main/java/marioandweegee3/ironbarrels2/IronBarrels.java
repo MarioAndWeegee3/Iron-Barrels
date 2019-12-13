@@ -43,12 +43,12 @@ public class IronBarrels implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        helper.register("iron_barrel", IRON_BARREL);
-        helper.register("gold_barrel", GOLD_BARREL);
-        helper.register("diamond_barrel", DIAMOND_BARREL);
-        helper.register("obsidian_barrel", OBSIDIAN_BARREL);
-        helper.register("copper_barrel", COPPER_BARREL);
-        helper.register("silver_barrel", SILVER_BARREL);
+        helper.registerBlockEntity("iron_barrel", IRON_BARREL);
+        helper.registerBlockEntity("gold_barrel", GOLD_BARREL);
+        helper.registerBlockEntity("diamond_barrel", DIAMOND_BARREL);
+        helper.registerBlockEntity("obsidian_barrel", OBSIDIAN_BARREL);
+        helper.registerBlockEntity("copper_barrel", COPPER_BARREL);
+        helper.registerBlockEntity("silver_barrel", SILVER_BARREL);
 
         Map<String, Block> barrels = new HashMap<>();
         barrels.put("iron_barrel", BigBarrelBlock.BARRELS[0]);
@@ -57,34 +57,34 @@ public class IronBarrels implements ModInitializer {
         barrels.put("obsidian_barrel", BigBarrelBlock.BARRELS[3]);
         barrels.put("copper_barrel", BigBarrelBlock.BARRELS[4]);
         barrels.put("silver_barrel", BigBarrelBlock.BARRELS[5]);
-        helper.registerAll(barrels, ItemGroup.DECORATIONS);
+        helper.registerAllBlocks(barrels, ItemGroup.DECORATIONS);
 
         ContainerProviderRegistry.INSTANCE.registerFactory(BIG_BARREL_ID, (syncId, id, player, buf) -> {
             return new BigBarrelController(syncId, player.inventory, buf.readInt(), buf.readInt(),
                     BlockContext.create(player.world, buf.readBlockPos()));
         });
 
-        helper.register("wood_copper_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[4]));
-        helper.register("wood_iron_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[0]));
-        helper.register("wood_silver_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[5]));
-        helper.register("wood_gold_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[1]));
-        helper.register("wood_diamond_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[2]));
-        helper.register("wood_obsidian_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[3]));
-        helper.register("copper_iron_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[0]));
-        helper.register("copper_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[5]));
-        helper.register("copper_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[1]));
-        helper.register("copper_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[2]));
-        helper.register("copper_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[3]));
-        helper.register("iron_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[5]));
-        helper.register("iron_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[1]));
-        helper.register("iron_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[2]));
-        helper.register("iron_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[3]));
-        helper.register("silver_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[1]));
-        helper.register("silver_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[2]));
-        helper.register("silver_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[3]));
-        helper.register("gold_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[2]));
-        helper.register("gold_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[3]));
-        helper.register("diamond_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[2], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("wood_copper_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[4]));
+        helper.registerItem("wood_iron_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[0]));
+        helper.registerItem("wood_silver_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[5]));
+        helper.registerItem("wood_gold_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[1]));
+        helper.registerItem("wood_diamond_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[2]));
+        helper.registerItem("wood_obsidian_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("copper_iron_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[0]));
+        helper.registerItem("copper_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[5]));
+        helper.registerItem("copper_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[1]));
+        helper.registerItem("copper_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[2]));
+        helper.registerItem("copper_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("iron_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[5]));
+        helper.registerItem("iron_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[1]));
+        helper.registerItem("iron_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[2]));
+        helper.registerItem("iron_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("silver_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[1]));
+        helper.registerItem("silver_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[2]));
+        helper.registerItem("silver_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("gold_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[2]));
+        helper.registerItem("gold_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("diamond_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[2], BigBarrelBlock.BARRELS[3]));
     }
 
     public static void log(String message){

@@ -153,7 +153,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
 
             isOpen = true;
             BlockState state = world.getBlockState(this.pos);
-            playSound(state, SoundEvents.field_17604);
+            playSound(state, SoundEvents.BLOCK_BARREL_OPEN);
 
             this.scheduleUpdate();
         }
@@ -168,7 +168,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
         if(this.viewerCount <= 0){
             this.viewerCount = 0;
             isOpen = false;
-            playSound(player.world.getBlockState(this.pos), SoundEvents.field_17603);
+            playSound(player.world.getBlockState(this.pos), SoundEvents.BLOCK_BARREL_CLOSE);
         }
         this.scheduleUpdate();
     }
@@ -182,7 +182,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
         double double_1 = (double) this.pos.getX() + 0.5D + (double) vec3i_1.getX() / 2.0D;
         double double_2 = (double) this.pos.getY() + 0.5D + (double) vec3i_1.getY() / 2.0D;
         double double_3 = (double) this.pos.getZ() + 0.5D + (double) vec3i_1.getZ() / 2.0D;
-        this.world.playSound((PlayerEntity) null, double_1, double_2, double_3, soundEvent_1, SoundCategory.OPTIONS,
+        this.world.playSound((PlayerEntity) null, double_1, double_2, double_3, soundEvent_1, SoundCategory.BLOCKS,
                 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
     }
 
