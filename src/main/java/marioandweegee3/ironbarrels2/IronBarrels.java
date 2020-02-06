@@ -14,9 +14,11 @@ import marioandweegee3.ironbarrels2.item.VanillaBarrelUpgradeKit;
 import marioandweegee3.ml3api.registry.RegistryHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.container.BlockContext;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 
@@ -39,6 +41,8 @@ public class IronBarrels implements ModInitializer {
             .create(() -> BarrelEntities.barrel(5), BigBarrelBlock.BARRELS[5]).build(null);
 
     public static final Identifier BIG_BARREL_ID = helper.makeId("big_barrel");
+
+    public static final Item debug_item = new Item(new Item.Settings().maxCount(1));
 
     @Override
     public void onInitialize() {
@@ -74,21 +78,28 @@ public class IronBarrels implements ModInitializer {
         helper.registerItem("copper_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[5]));
         helper.registerItem("copper_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[1]));
         helper.registerItem("copper_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[2]));
-        helper.registerItem("copper_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("copper_obsidian_kit",
+                new UpgradeKit(BigBarrelBlock.BARRELS[4], BigBarrelBlock.BARRELS[3]));
         helper.registerItem("iron_silver_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[5]));
         helper.registerItem("iron_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[1]));
         helper.registerItem("iron_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[2]));
         helper.registerItem("iron_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[0], BigBarrelBlock.BARRELS[3]));
         helper.registerItem("silver_gold_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[1]));
         helper.registerItem("silver_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[2]));
-        helper.registerItem("silver_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("silver_obsidian_kit",
+                new UpgradeKit(BigBarrelBlock.BARRELS[5], BigBarrelBlock.BARRELS[3]));
         helper.registerItem("gold_diamond_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[2]));
         helper.registerItem("gold_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[1], BigBarrelBlock.BARRELS[3]));
-        helper.registerItem("diamond_obsidian_kit", new UpgradeKit(BigBarrelBlock.BARRELS[2], BigBarrelBlock.BARRELS[3]));
+        helper.registerItem("diamond_obsidian_kit",
+                new UpgradeKit(BigBarrelBlock.BARRELS[2], BigBarrelBlock.BARRELS[3]));
+
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            helper.registerItem("debug_item", debug_item);
+        }
     }
 
-    public static void log(String message){
-        logger.info("["+modid+"] "+message);
+    public static void log(String message) {
+        logger.info("[" + modid + "] " + message);
     }
 
 }

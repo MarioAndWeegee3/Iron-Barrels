@@ -10,6 +10,7 @@
         "y":{"item":"ironbarrels2:silver_barrel"},
         "z":{"item":"glass"}
     },
+    "group":"ironbarrels2:gold_barrel",
     "result":{
         "item":"ironbarrels2:gold_barrel"
     }

@@ -7,6 +7,7 @@
         "x":{"item":"iron_ingot"},
         "y":{"tag":"c:copper_ingot"}
     },
+    "group":"ironbarrels2:kit/copper",
     "result":{
         "item":"ironbarrels2:copper_iron_kit"
     }

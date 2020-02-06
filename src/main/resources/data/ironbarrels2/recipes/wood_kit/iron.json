@@ -9,6 +9,7 @@
         "x":{"item":"iron_ingot"},
         "y":{"tag":"planks"}
     },
+    "group":"ironbarrels2:kit/wood",
     "result":{
         "item":"ironbarrels2:wood_iron_kit"
     }

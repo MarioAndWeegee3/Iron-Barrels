@@ -9,6 +9,7 @@
         "x":{"item":"obsidian"},
         "y":{"item":"ironbarrels2:diamond_barrel"}
     },
+    "group":"ironbarrels2:obsidian_barrel",
     "result":{
         "item":"ironbarrels2:obsidian_barrel"
     }

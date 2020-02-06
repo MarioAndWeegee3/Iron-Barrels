@@ -10,6 +10,7 @@
         "y":{"tag":"c:silver_ingot"},
         "z":{"item":"glass"}
     },
+    "group":"ironbarrels2:kit/silver",
     "result":{
         "item":"ironbarrels2:silver_gold_kit"
     }

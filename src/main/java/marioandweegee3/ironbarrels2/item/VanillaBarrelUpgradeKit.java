@@ -44,6 +44,8 @@ public class VanillaBarrelUpgradeKit extends Item {
 
         Direction dir = original.get(BarrelBlock.FACING);
 
+        if(!(world.getBlockEntity(pos) instanceof BarrelBlockEntity)) return false;
+
         BarrelBlockEntity barrel = (BarrelBlockEntity) world.getBlockEntity(pos);
 
         if(ChestBlockEntity.countViewers(world, barrel, pos.getX(), pos.getY(), pos.getZ()) > 0) return false;
@@ -53,14 +55,8 @@ public class VanillaBarrelUpgradeKit extends Item {
             barrelItems.set(i, barrel.getInvStack(i).copy());
         }
 
-        BigBarrelEntity bigBarrel = (BigBarrelEntity) block.createBlockEntity(world);
-
         Text name = barrel.getName();
         boolean hasCustom = barrel.hasCustomName();
-
-        if(hasCustom){
-            bigBarrel.name = name;
-        }
 
         world.removeBlockEntity(pos);
         world.breakBlock(pos, false);

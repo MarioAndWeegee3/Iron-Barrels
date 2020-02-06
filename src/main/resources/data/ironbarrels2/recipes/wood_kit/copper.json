@@ -9,6 +9,7 @@
         "x":{"tag":"c:copper_ingot"},
         "y":{"tag":"planks"}
     },
+    "group":"ironbarrels2:kit/wood",
     "result":{
         "item":"ironbarrels2:wood_copper_kit"
     }

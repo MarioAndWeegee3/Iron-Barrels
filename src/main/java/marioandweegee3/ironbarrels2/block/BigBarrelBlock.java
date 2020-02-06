@@ -8,6 +8,7 @@ import marioandweegee3.ironbarrels2.block.entity.BigBarrelEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.tools.FabricToolTags;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -62,8 +63,8 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
         super(FabricBlockSettings
             .of(Material.METAL)
             .breakByTool(FabricToolTags.PICKAXES)
-            .breakByHand(false)
-            .strength(2, 2)
+            .breakByHand(true)
+            .strength(1, 2)
             .build()
         );
         this.rows = rows;
@@ -115,8 +116,8 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
         return true;
     }
 
-    public int getComparatorOutput(BlockState blockState_1, World world_1, BlockPos blockPos_1) {
-        return Container.calculateComparatorOutput(world_1.getBlockEntity(blockPos_1));
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        return Container.calculateComparatorOutput(world.getBlockEntity(pos));
     }
 
     public BlockState rotate(BlockState blockState_1, BlockRotation blockRotation_1) {
@@ -141,14 +142,19 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
     }
 
     @Override
-    public ActionResult onUse(BlockState blockState_1, World world, BlockPos pos, PlayerEntity player,
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
             Hand hand, BlockHitResult blockHitResult_1) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         } else {
             if(!player.isSneaking()){
-                BlockEntity blockEntity_1 = world.getBlockEntity(pos);
-                if (blockEntity_1 instanceof BigBarrelEntity) {
+                if(FabricLoader.getInstance().isDevelopmentEnvironment() && player.getStackInHand(hand).getItem() == IronBarrels.debug_item) {
+                    LOGGER.info("Comparator Output: "+getComparatorOutput(state, world, pos));
+                    return ActionResult.SUCCESS;
+                }
+
+                BlockEntity be = world.getBlockEntity(pos);
+                if (be instanceof BigBarrelEntity) {
                     ContainerProviderRegistry.INSTANCE.openContainer(IronBarrels.BIG_BARREL_ID, player,
                         (buf)->{
                             buf.writeInt(rows);

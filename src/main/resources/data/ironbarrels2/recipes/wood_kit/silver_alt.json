@@ -7,6 +7,7 @@
         "x":{"tag":"c:silver_ingot"},
         "y":{"item":"ironbarrels2:wood_iron_kit"}
     },
+    "group":"ironbarrels2:kit/wood",
     "result":{
         "item":"ironbarrels2:wood_silver_kit"
     }

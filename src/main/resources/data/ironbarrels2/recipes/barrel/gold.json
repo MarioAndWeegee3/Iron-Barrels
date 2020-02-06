@@ -9,6 +9,7 @@
         "x":{"item":"gold_ingot"},
         "y":{"item":"ironbarrels2:iron_barrel"}
     },
+    "group":"ironbarrels2:gold_barrel",
     "result":{
         "item":"ironbarrels2:gold_barrel"
     }

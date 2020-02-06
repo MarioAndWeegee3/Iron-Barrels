@@ -10,6 +10,7 @@
         "y":{"item":"ironbarrels2:copper_gold_kit"},
         "z":{"item":"glass"}
     },
+    "group":"ironbarrels2:kit/copper",
     "result":{
         "item":"ironbarrels2:copper_diamond_kit"
     }

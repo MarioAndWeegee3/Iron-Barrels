@@ -9,6 +9,7 @@
         "x":{"item":"diamond"},
         "y":{"tag":"c:silver_ingot"}
     },
+    "group":"ironbarrels2:kit/silver",
     "result":{
         "item":"ironbarrels2:silver_diamond_kit"
     }

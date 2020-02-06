@@ -9,6 +9,7 @@
         "x":{"tag":"c:copper_ingot"},
         "y":{"item":"barrel"}
     },
+    "group":"ironbarrels2:copper_barrel",
     "result":{
         "item":"ironbarrels2:copper_barrel"
     }

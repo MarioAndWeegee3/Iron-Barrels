@@ -202,7 +202,6 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
             IronBarrels.log("Invalid Slot "+slot);
             return ItemStack.EMPTY;
         }
-        markDirty();
         return inv.get(slot);
     }
 

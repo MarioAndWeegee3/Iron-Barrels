@@ -9,6 +9,7 @@
         "x":{"item":"diamond"},
         "y":{"item":"ironbarrels2:wood_silver_kit"}
     },
+    "group":"ironbarrels2:kit/wood",
     "result":{
         "item":"ironbarrels2:wood_diamond_kit"
     }
