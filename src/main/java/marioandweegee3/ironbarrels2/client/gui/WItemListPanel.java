@@ -24,12 +24,6 @@ public class WItemListPanel extends WPanel {
 
     @Override
     public void paintBackground(int x, int y, int mouseX, int mouseY) {
-        // if (getBackgroundPainter() != null) {
-        //     getBackgroundPainter().paintBackground(x, y, this);
-        // } else {
-        //     ScreenDrawing.drawBeveledPanel(x, y, width, height);
-        // }
-
         if (scrollBar.getValue() != lastScroll) {
             gui.clearSlots();
             gui.triggerValidation();
