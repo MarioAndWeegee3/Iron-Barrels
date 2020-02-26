@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "ironbarrels2",
+  "id": "ironbarrels3",
   "version": "${version}",
 
-  "name": "Iron Barrels 2",
-  "description": "Iron Barrels - remade for a better experience",
+  "name": "Iron Barrels 3",
+  "description": "Iron Barrels - remade in Scala; because I like Scala",
   "authors": [
     "MarioAndWeegee3"
   ],
@@ -13,18 +13,22 @@
   },
 
   "license": "",
-  "icon": "assets/ironbarrels2/icon.png",
+  "icon": "assets/ironbarrels3/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "marioandweegee3.ironbarrels2.IronBarrels"
+      {
+		"adapter": "scala",
+		"value": "marioandweegee3.ironbarrels3.IronBarrels"
+	  }
     ]
   },
 
   "depends": {
-    "fabricloader": ">=0.4.0",
-    "fabric": "*"
+    "fabricloader": ">=0.7.0",
+    "fabric": "*",
+	"fabric-language-scala":"*"
   },
   "suggests": {
     "flamingo": "*"

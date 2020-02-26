@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.2.6-SNAPSHOT'
 	id 'maven-publish'
+	id 'scala'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -18,6 +19,7 @@ repositories {
 	maven { url 'http://server.bbkr.space:8081/artifactory/libs-snapshot' }
 	maven { url "https://minecraft.curseforge.com/api/maven" }
 	mavenLocal()
+	jcenter()
 }
 
 dependencies {
@@ -31,12 +33,13 @@ dependencies {
 
 	modCompile "marioandweegee3:ml3api:${project.ml3api_version}"
 	modImplementation ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}")
-	modCompile "io.github.cottonmc:LibCD:${project.libcd_version}"
 	modApi "ninjaphenix:ninjaphenix-container-lib:${project.container_lib_version}"
+	modImplementation "net.fabricmc:fabric-language-scala:0.3.1.+"
+	modImplementation "com.lettuce.fudge:artifice:0.6.0+1.15.2"
 
 	include "marioandweegee3:ml3api:${project.ml3api_version}"
-	include "io.github.cottonmc:LibCD:${project.libcd_version}"
 	include "ninjaphenix:ninjaphenix-container-lib:${project.container_lib_version}"
+	include "com.lettuce.fudge:artifice:0.6.0+1.15.2"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
