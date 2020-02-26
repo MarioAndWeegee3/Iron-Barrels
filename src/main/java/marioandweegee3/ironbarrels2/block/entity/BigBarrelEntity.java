@@ -2,6 +2,7 @@ package marioandweegee3.ironbarrels2.block.entity;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import marioandweegee3.ironbarrels2.IronBarrels;
 import marioandweegee3.ironbarrels2.block.BigBarrelBlock;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
@@ -26,13 +28,13 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Nameable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable {
-    public final int rows, columns;
+public class BigBarrelEntity extends BlockEntity implements SidedInventory, Nameable {
 
-    public Text name;
+    private Text name;
 
     protected DefaultedList<ItemStack> inv;
     protected int viewerCount;
@@ -41,32 +43,23 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
 
     public BigBarrelEntity(BlockEntityType<? extends BigBarrelEntity> type, Block block){
         super(type);
-        this.name = new TranslatableText(block.getTranslationKey());
+        this.setName(new TranslatableText(block.getTranslationKey()));
 
-        int rows, columns;
+        int rows;
 
         if(block instanceof BigBarrelBlock){
             BigBarrelBlock barrelBlock = (BigBarrelBlock) block;
             rows = barrelBlock.getRows();
-            columns = barrelBlock.getColumns();
         } else {
             rows = 1;
-            columns = 1;
         }
-
-        this.rows = rows;
-        this.columns = columns;
-        this.inv = DefaultedList.ofSize(rows * columns, ItemStack.EMPTY);
+        this.inv = DefaultedList.ofSize(rows * 9, ItemStack.EMPTY);
     }
 
     public void setItems(DefaultedList<ItemStack> items){
         for(int i = 0; i < items.size(); i++){
             inv.set(i, items.get(i).copy());
         }
-    }
-
-    public List<ItemStack> getItems(){
-        return inv;
     }
 
     @Override
@@ -99,6 +92,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
     }
 
     public void update() {
+        assert world != null;
         this.viewerCount = countViewers(world, this, pos);
         if (this.viewerCount > 0) {
             this.scheduleUpdate();
@@ -106,7 +100,6 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
             BlockState state = this.getCachedState();
             if (!(state.getBlock() instanceof BigBarrelBlock)) {
                 this.markInvalid();
-                return;
             }
         }
     }
@@ -114,9 +107,9 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
     public static int countViewers(World world, BigBarrelEntity barrelEntity, BlockPos pos) {
         int viewerCount = 0;
         List<PlayerEntity> players = world.getEntities(PlayerEntity.class,
-                new Box((double) ((float) pos.getX() - 5.0F), (double) ((float) pos.getY() - 5.0F),
-                        (double) ((float) pos.getZ() - 5.0F), (double) ((float) (pos.getX() + 1) + 5.0F),
-                        (double) ((float) (pos.getY() + 1) + 5.0F), (double) ((float) (pos.getZ() + 1) + 5.0F)), null);
+                new Box((float) pos.getX() - 5.0F, (float) pos.getY() - 5.0F,
+                        (float) pos.getZ() - 5.0F, (float) (pos.getX() + 1) + 5.0F,
+                        (float) (pos.getY() + 1) + 5.0F, (float) (pos.getZ() + 1) + 5.0F), null);
         Iterator<PlayerEntity> itr = players.iterator();
 
         while (true) {
@@ -140,6 +133,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
     }
 
     private void scheduleUpdate() {
+        assert this.world != null;
         this.world.getBlockTickScheduler().schedule(this.getPos(), this.getCachedState().getBlock(), 5);
     }
 
@@ -152,6 +146,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
             ++this.viewerCount;
 
             isOpen = true;
+            assert world != null;
             BlockState state = world.getBlockState(this.pos);
             playSound(state, SoundEvents.BLOCK_BARREL_OPEN);
 
@@ -182,7 +177,8 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
         double double_1 = (double) this.pos.getX() + 0.5D + (double) vec3i_1.getX() / 2.0D;
         double double_2 = (double) this.pos.getY() + 0.5D + (double) vec3i_1.getY() / 2.0D;
         double double_3 = (double) this.pos.getZ() + 0.5D + (double) vec3i_1.getZ() / 2.0D;
-        this.world.playSound((PlayerEntity) null, double_1, double_2, double_3, soundEvent_1, SoundCategory.BLOCKS,
+        assert this.world != null;
+        this.world.playSound(null, double_1, double_2, double_3, soundEvent_1, SoundCategory.BLOCKS,
                 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
     }
 
@@ -193,7 +189,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
 
     @Override
     public Text getDisplayName() {
-        return name;
+        return getName();
     }
 
     @Override
@@ -233,6 +229,7 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
 
     @Override
     public boolean canPlayerUseInv(PlayerEntity player) {
+        assert this.world != null;
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         } else {
@@ -245,5 +242,23 @@ public class BigBarrelEntity extends BlockEntity implements Inventory, Nameable 
     public Text getName() {
         return name;
     }
-    
+
+    public void setName(Text name) {
+        this.name = name;
+    }
+
+    @Override
+    public int[] getInvAvailableSlots(Direction side) {
+        return IntStream.range(0, inv.size()).toArray();
+    }
+
+    @Override
+    public boolean canInsertInvStack(int slot, ItemStack stack, Direction dir) {
+        return true;
+    }
+
+    @Override
+    public boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
+        return true;
+    }
 }

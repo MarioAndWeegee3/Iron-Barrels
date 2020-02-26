@@ -1,6 +1,7 @@
 package marioandweegee3.ironbarrels2.item;
 
 import java.util.List;
+import java.util.Objects;
 
 import marioandweegee3.ironbarrels2.block.BigBarrelBlock;
 import marioandweegee3.ironbarrels2.block.entity.BigBarrelEntity;
@@ -46,7 +47,7 @@ public class VanillaBarrelUpgradeKit extends Item {
 
         if(!(world.getBlockEntity(pos) instanceof BarrelBlockEntity)) return false;
 
-        BarrelBlockEntity barrel = (BarrelBlockEntity) world.getBlockEntity(pos);
+        BarrelBlockEntity barrel = (BarrelBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos));
 
         if(ChestBlockEntity.countViewers(world, barrel, pos.getX(), pos.getY(), pos.getZ()) > 0) return false;
 
@@ -68,7 +69,7 @@ public class VanillaBarrelUpgradeKit extends Item {
             BigBarrelEntity barrelEntity = (BigBarrelEntity) be;
             barrelEntity.setItems(barrelItems);
             if(hasCustom){
-                barrelEntity.name = name;
+                barrelEntity.setName(name);
             }
         }
 
@@ -77,7 +78,7 @@ public class VanillaBarrelUpgradeKit extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getPlayer().isSneaking()){
+        if(Objects.requireNonNull(context.getPlayer()).isSneaking()){
             World world = context.getWorld();
             BlockPos pos = context.getBlockPos();
             if(upgrade(world, pos, world.getBlockState(pos), context.getStack())){

@@ -1,26 +1,21 @@
 package marioandweegee3.ironbarrels2;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.logging.log4j.Logger;
-
 import marioandweegee3.ironbarrels2.block.BigBarrelBlock;
 import marioandweegee3.ironbarrels2.block.entity.BarrelEntities;
 import marioandweegee3.ironbarrels2.block.entity.BigBarrelEntity;
-import marioandweegee3.ironbarrels2.client.gui.BigBarrelController;
 import marioandweegee3.ironbarrels2.item.UpgradeKit;
 import marioandweegee3.ironbarrels2.item.VanillaBarrelUpgradeKit;
 import marioandweegee3.ml3api.registry.RegistryHelper;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.container.BlockContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class IronBarrels implements ModInitializer {
     public static final String modid = "ironbarrels2";
@@ -39,8 +34,6 @@ public class IronBarrels implements ModInitializer {
             .create(() -> BarrelEntities.barrel(4), BigBarrelBlock.BARRELS[4]).build(null);
     public static final BlockEntityType<BigBarrelEntity> SILVER_BARREL = BlockEntityType.Builder
             .create(() -> BarrelEntities.barrel(5), BigBarrelBlock.BARRELS[5]).build(null);
-
-    public static final Identifier BIG_BARREL_ID = helper.makeId("big_barrel");
 
     public static final Item debug_item = new Item(new Item.Settings().maxCount(1));
 
@@ -62,11 +55,6 @@ public class IronBarrels implements ModInitializer {
         barrels.put("copper_barrel", BigBarrelBlock.BARRELS[4]);
         barrels.put("silver_barrel", BigBarrelBlock.BARRELS[5]);
         helper.registerAllBlocks(barrels, ItemGroup.DECORATIONS);
-
-        ContainerProviderRegistry.INSTANCE.registerFactory(BIG_BARREL_ID, (syncId, id, player, buf) -> {
-            return new BigBarrelController(syncId, player.inventory, buf.readInt(), buf.readInt(),
-                    BlockContext.create(player.world, buf.readBlockPos()));
-        });
 
         helper.registerItem("wood_copper_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[4]));
         helper.registerItem("wood_iron_kit", new VanillaBarrelUpgradeKit(BigBarrelBlock.BARRELS[0]));

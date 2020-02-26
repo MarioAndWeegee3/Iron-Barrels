@@ -19,9 +19,6 @@
   "entrypoints": {
     "main": [
       "marioandweegee3.ironbarrels2.IronBarrels"
-    ],
-    "client":[
-      "marioandweegee3.ironbarrels2.client.IronBarrelsClient"
     ]
   },
 

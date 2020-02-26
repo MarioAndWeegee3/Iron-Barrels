@@ -1,6 +1,7 @@
 package marioandweegee3.ironbarrels2.item;
 
 import java.util.List;
+import java.util.Objects;
 
 import marioandweegee3.ironbarrels2.block.BigBarrelBlock;
 import marioandweegee3.ironbarrels2.block.entity.BigBarrelEntity;
@@ -21,6 +22,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class UpgradeKit extends Item {
     protected final BigBarrelBlock block1, block2;
@@ -55,12 +57,16 @@ public class UpgradeKit extends Item {
         return new TranslatableText("text.ironbarrels2.upgrade."+text);
     }
 
-    public boolean upgrade(World world, BlockPos pos, BlockState original, ItemStack stack){
+    public boolean upgrade(World world, BlockPos pos, BlockState original){
         if(!(original.getBlock() instanceof BigBarrelBlock) || world.isClient || original.getBlock() != block1) return false;
 
         Direction dir = original.get(BarrelBlock.FACING);
 
-        BigBarrelEntity barrel = (BigBarrelEntity) world.getBlockEntity(pos);
+        BlockEntity be = world.getBlockEntity(pos);
+
+        if(be == null) return false;
+
+        BigBarrelEntity barrel = (BigBarrelEntity) be;
 
         if(BigBarrelEntity.countViewers(world, barrel, pos) > 0) return false;
 
@@ -69,13 +75,14 @@ public class UpgradeKit extends Item {
             barrelItems.set(i, barrel.getInvStack(i).copy());
         }
 
+        @NotNull
         BigBarrelEntity bigBarrel = (BigBarrelEntity) block2.createBlockEntity(world);
 
         Text name = barrel.getName();
         boolean hasCustom = barrel.hasCustomName();
 
         if(hasCustom){
-            bigBarrel.name = name;
+            bigBarrel.setName(name);
         }
 
         world.removeBlockEntity(pos);
@@ -83,12 +90,12 @@ public class UpgradeKit extends Item {
 
         world.setBlockState(pos, block2.getDefaultState().with(BarrelBlock.FACING, dir));
         
-        BlockEntity be = world.getBlockEntity(pos);
-        if(be instanceof BigBarrelEntity){
-            BigBarrelEntity barrelEntity = (BigBarrelEntity) be;
+        BlockEntity be2 = world.getBlockEntity(pos);
+        if(be2 instanceof BigBarrelEntity){
+            BigBarrelEntity barrelEntity = (BigBarrelEntity) be2;
             barrelEntity.setItems(barrelItems);
             if(hasCustom){
-                barrelEntity.name = name;
+                barrelEntity.setName(name);
             }
         }
 
@@ -97,10 +104,10 @@ public class UpgradeKit extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getPlayer().isSneaking()){
+        if(Objects.requireNonNull(context.getPlayer()).isSneaking()){
             World world = context.getWorld();
             BlockPos pos = context.getBlockPos();
-            if(upgrade(world, pos, world.getBlockState(pos), context.getStack())){
+            if(upgrade(world, pos, world.getBlockState(pos))){
                 if(!context.getPlayer().isCreative()){
                     context.getStack().decrement(1);
                 }

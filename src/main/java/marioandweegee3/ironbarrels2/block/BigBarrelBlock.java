@@ -1,24 +1,18 @@
 package marioandweegee3.ironbarrels2.block;
 
-import java.util.Random;
-
 import marioandweegee3.ironbarrels2.IronBarrels;
 import marioandweegee3.ironbarrels2.block.entity.BarrelEntities;
 import marioandweegee3.ironbarrels2.block.entity.BigBarrelEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.tools.FabricToolTags;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.Container;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -26,40 +20,42 @@ import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import ninjaphenix.containerlib.ContainerLibrary;
+import org.jetbrains.annotations.NotNull;
 
-public class BigBarrelBlock extends Block implements BlockEntityProvider {
+import java.util.Random;
+
+@SuppressWarnings("deprecation")
+public class BigBarrelBlock extends Block implements BlockEntityProvider, InventoryProvider {
     public static final DirectionProperty FACING = BarrelBlock.FACING;
     public static final BooleanProperty OPEN = BarrelBlock.OPEN;
 
     public static final BigBarrelBlock[] BARRELS = {
         // Iron Barrel
-        new BigBarrelBlock(6, 9, 0),
+        new BigBarrelBlock(6, 0),
         // Gold Barrel
-        new BigBarrelBlock(9, 9, 1),
+        new BigBarrelBlock(9, 1),
         // Diamond Barrel
-        new BigBarrelBlock(9, 12, 2),
+        new BigBarrelBlock(12, 2),
         // Obsidian Barrel
-        new BigBarrelBlock(9, 15, 3),
+        new BigBarrelBlock(15, 3),
         // Copper Barrel
-        new BigBarrelBlock(5, 9, 4),
+        new BigBarrelBlock(5, 4),
         // Silver Barrel
-        new BigBarrelBlock(8, 9, 5)
+        new BigBarrelBlock(8, 5)
     };
 
-    protected final int rows, columns;
+    protected final int rows;
     public final int index;
 
-    protected BigBarrelBlock(int rows, int columns, int index) {
+    protected BigBarrelBlock(int rows, int index) {
         super(FabricBlockSettings
             .of(Material.METAL)
             .breakByTool(FabricToolTags.PICKAXES)
@@ -68,7 +64,6 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
             .build()
         );
         this.rows = rows;
-        this.columns = columns;
         this.index = index;
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(OPEN, false));
     }
@@ -77,18 +72,28 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
         return rows;
     }
 
-    public int getColumns(){
-        return columns;
-    }
-
     @Override
     protected void appendProperties(Builder<Block, BlockState> stateManager) {
         stateManager.add(FACING, OPEN);
     }
 
+    @NotNull
     @Override
     public BlockEntity createBlockEntity(BlockView view) {
         return BarrelEntities.barrel(index);
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, IWorld world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if(blockEntity instanceof BigBarrelEntity){
+            return (BigBarrelEntity) blockEntity;
+        } else {
+            if (blockEntity != null) {
+                blockEntity.markInvalid();
+            }
+            return null;
+        }
     }
 
     @Override
@@ -101,7 +106,7 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
         if (stack.hasCustomName()) {
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof BigBarrelEntity) {
-                ((BigBarrelEntity) be).name = stack.getName();
+                ((BigBarrelEntity) be).setName(stack.getName());
             }
         }
     }
@@ -144,31 +149,23 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
             Hand hand, BlockHitResult blockHitResult_1) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            if(!player.isSneaking()){
-                if(FabricLoader.getInstance().isDevelopmentEnvironment() && player.getStackInHand(hand).getItem() == IronBarrels.debug_item) {
-                    LOGGER.info("Comparator Output: "+getComparatorOutput(state, world, pos));
+        if (!world.isClient) {
+            if (!player.isSneaking()) {
+                if (FabricLoader.getInstance().isDevelopmentEnvironment() && player.getStackInHand(hand).getItem() == IronBarrels.debug_item) {
+                    LOGGER.info("Comparator Output: " + getComparatorOutput(state, world, pos));
                     return ActionResult.SUCCESS;
                 }
 
                 BlockEntity be = world.getBlockEntity(pos);
                 if (be instanceof BigBarrelEntity) {
-                    ContainerProviderRegistry.INSTANCE.openContainer(IronBarrels.BIG_BARREL_ID, player,
-                        (buf)->{
-                            buf.writeInt(rows);
-                            buf.writeInt(columns);
-                            buf.writeBlockPos(pos);
-                        }
-                    );
+                    ContainerLibrary.openContainer(player, pos, ((BigBarrelEntity) be).getName());
 
                     player.incrementStat(Stats.OPEN_BARREL);
                 }
             }
 
-            return ActionResult.SUCCESS;
         }
+        return ActionResult.SUCCESS;
     }
 
     @Override
@@ -183,7 +180,9 @@ public class BigBarrelBlock extends Block implements BlockEntityProvider {
                 world.setBlockState(pos, state.with(OPEN, false));
             }
         } else {
-            e.markInvalid();
+            if (e != null) {
+                e.markInvalid();
+            }
         }
     }
 
