@@ -22,6 +22,12 @@
 		"adapter": "scala",
 		"value": "marioandweegee3.ironbarrels3.IronBarrels"
 	  }
+    ],
+    "client": [
+      {
+        "adapter": "scala",
+        "value": "marioandweegee3.ironbarrels3.client.IronBarrelsClient"
+      }
     ]
   },
 

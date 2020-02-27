@@ -36,6 +36,7 @@ dependencies {
 	modApi "ninjaphenix:ninjaphenix-container-lib:${project.container_lib_version}"
 	modImplementation "net.fabricmc:fabric-language-scala:0.3.1.+"
 	modImplementation "com.lettuce.fudge:artifice:0.6.0+1.15.2"
+	modCompile "com.google.code.findbugs:jsr305:+"
 
 	include "marioandweegee3:ml3api:${project.ml3api_version}"
 	include "ninjaphenix:ninjaphenix-container-lib:${project.container_lib_version}"
